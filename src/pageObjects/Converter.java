@@ -11,19 +11,29 @@ public class Converter extends utils.Driver {
 		super();
 	}
 	
-	private WebElement txtBox_test(){
-		return driver.findElement(By.id("test"));	
+	private WebElement searchBox(){
+		return driver.findElement(By.id("youtube-url"));	
+	}
+	
+	private WebElement downloadLink(){
+		return driver.findElement(By.linkText("Download"));
+	}
+	
+	private WebElement searchButton(){
+		return driver.findElement(By.id("submit"));	
 	}
 	
 	public void OpenConverter(){
-		
+		driver.get(utils.Links.converterURL);	
 	}
 	
-	public void EnterURL(){
-		
+	public void EnterURL(String url){
+		searchBox().clear();
+		searchBox().sendKeys(url);
+		searchButton().click();
 	}
 	
 	public void DownloadVideo(){
-		
+		downloadLink().click();
 	}
 }
