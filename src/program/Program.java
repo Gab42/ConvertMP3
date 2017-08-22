@@ -5,19 +5,23 @@ import java.util.ArrayList;
 import pageObjects.Converter;
 import pageObjects.Youtube;
 import utils.Driver;
+import utils.ReadFromFile;
 
 public class Program {
 	
-	private static ArrayList<String> songsList = new ArrayList<String>();
+	public static ArrayList<String> songsList = new ArrayList<String>();
 	public static String songName;
 	
 	public static void main(String[] args) throws InterruptedException {	
 		//System.setProperty("webdriver.gecko.driver", utils.DriverLocation.webdriverFirefox);				
 		System.setProperty("webdriver.chrome.driver", utils.DriverLocation.webdriverChrome);
+		
 		Youtube youtubePage = new Youtube(Driver.driver, Driver.wait);
 		Converter converterPage = new Converter(Driver.driver, Driver.wait);
+		String songlist = System.getProperty("user.home") + "\\Desktop\\" + "songlist.txt";
 		
-		songsList.add("Mama Cass - Dream a little dream of me"); // for testing purposes; to be implemented read from file list
+		ReadFromFile.ReadFromFile(songlist);
+		
 		youtubePage.OpenYoutube();
 		
 		for (int i = 0; i < songsList.size(); i++){
