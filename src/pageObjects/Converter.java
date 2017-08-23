@@ -55,15 +55,17 @@ public class Converter extends utils.Driver {
 		}
 	}
 		
-	public void CheckIfDownloadFinished(){
+	public void CheckIfDownloadFinished() throws InterruptedException{
 		//Find if file is still downloading
 		String downloadPath = System.getProperty("user.home") + "\\Downloads\\";
-		String fileExt = ".mp3.crdownload" ;
+		String fileExt = ".crdownload" ;
 		File dir = new File(downloadPath);
 		GenericExtFilter filter = new GenericExtFilter(fileExt);
+		
+		Thread.sleep(2000);
 		String[] list = dir.list(filter);
 		
-		while (list.length != 0){
+		while (list.length > 0){
 			list = dir.list(filter);
 			try {
 				Thread.sleep(3000);
