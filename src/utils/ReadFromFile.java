@@ -9,7 +9,7 @@ import program.Program;
 
 public class ReadFromFile {
 
-	public static void ReadFromFile(String file){		
+	public static void ReadFile(String file){		
 		String line;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));

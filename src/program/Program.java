@@ -12,15 +12,17 @@ public class Program {
 	public static ArrayList<String> songsList = new ArrayList<String>();
 	public static String songName;
 	
-	public static void main(String[] args) throws InterruptedException {	
-		//System.setProperty("webdriver.gecko.driver", utils.DriverLocation.webdriverFirefox);				
+
+	
+	public static void main(String[] args) throws InterruptedException {			
 		System.setProperty("webdriver.chrome.driver", utils.DriverLocation.webdriverChrome);
 		
 		Youtube youtubePage = new Youtube(Driver.driver, Driver.wait);
 		Converter converterPage = new Converter(Driver.driver, Driver.wait);
-		String songlist = System.getProperty("user.home") + "\\Desktop\\" + "songlist.txt";
 		
-		ReadFromFile.ReadFromFile(songlist);
+		// Create a list of the songs to search for
+		String songlist = System.getProperty("user.home") + "\\Desktop\\" + "songlist.txt";
+		ReadFromFile.ReadFile(songlist);
 		
 		youtubePage.OpenYoutube();
 		
@@ -39,6 +41,12 @@ public class Program {
 			converterPage.EnterURL(youtubePage.videoURL);
 			Thread.sleep(5000);
 			converterPage.DownloadVideo();	
+			
+			// Check if last song on list
+			if (i == (songsList.size() - 1)){
+				// If last song on list, wait for download to finish before closing the browser
+				converterPage.CheckIfDownloadFinished();
+			}
 			
 			youtubePage.OpenYoutube();
 		}
