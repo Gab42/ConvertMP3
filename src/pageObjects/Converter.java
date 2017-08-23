@@ -58,7 +58,7 @@ public class Converter extends utils.Driver {
 	public void CheckIfDownloadFinished(){
 		//Find if file is still downloading
 		String downloadPath = System.getProperty("user.home") + "\\Downloads\\";
-		String fileExt = ".crdownload" ;
+		String fileExt = ".mp3.crdownload" ;
 		File dir = new File(downloadPath);
 		GenericExtFilter filter = new GenericExtFilter(fileExt);
 		String[] list = dir.list(filter);
