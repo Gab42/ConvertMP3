@@ -3,6 +3,7 @@ package program;
 import java.io.File;
 import java.util.ArrayList;
 
+import Graphics.TopLevelWindow;
 import pageObjects.Converter;
 import pageObjects.Youtube;
 import utils.Driver;
@@ -15,7 +16,11 @@ public class Program {
 	
 
 	
-	public static void main(String[] args) throws InterruptedException {			
+	public static void main(String[] args) throws InterruptedException {	
+		TopLevelWindow.createWindow();			
+	}
+	
+	public static void downloadVideos() throws InterruptedException{
 		System.setProperty("webdriver.chrome.driver", utils.DriverLocation.webdriverChrome);
 		
 		Youtube youtubePage = new Youtube(Driver.driver, Driver.wait);
@@ -54,6 +59,7 @@ public class Program {
 		}
 			
 		Driver.driver.quit();
-		System.out.println("Done!");		
+		TopLevelWindow.CloseWindow(TopLevelWindow.frame);
+		System.out.println("Done!");
 	}
 }
