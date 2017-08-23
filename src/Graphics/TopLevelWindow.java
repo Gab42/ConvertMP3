@@ -27,11 +27,19 @@ public class TopLevelWindow {
 		 panel.add(textLabel, c); 
 		 textLabel.setVisible(true);
 		 
+		 // Text field for input
+		 JTextArea textField = new JTextArea(10, 30);		
+		 c.gridy = 1;
+		 panel.add(textField, c);
+		 
 		 // Button to start download
 		 JButton buttonGo = new JButton(); 
+		 c.gridy = 2;
 		 buttonGo.setText("Start download");	 
 		 panel.add(buttonGo, c);
 		 buttonGo.setVisible(true);
+		 
+	
 		 
 		 buttonGo.addActionListener( new ActionListener()
 		 {
