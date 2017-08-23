@@ -31,10 +31,6 @@ public class Youtube extends utils.Driver{
 			return driver.findElement(By.cssSelector("span.yt-thumb-simple > img"));
 		}
 		
-		private WebElement videoOpened(){
-			return driver.findElement(By.id("watch-uploader-info"));
-		}
-		
 		public void OpenYoutube(){
 			driver.get(utils.Links.youtubeURL);	
 		}

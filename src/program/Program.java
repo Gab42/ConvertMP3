@@ -1,5 +1,6 @@
 package program;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import pageObjects.Converter;
@@ -22,28 +23,36 @@ public class Program {
 		
 		// Create a list of the songs to search for
 		String songlist = System.getProperty("user.home") + "\\Desktop\\" + "songlist.txt";
-		ReadFromFile.ReadFile(songlist);
-		
-		youtubePage.OpenYoutube();
-		
-		for (int i = 0; i < songsList.size(); i++){
-			songName = songsList.get(i);
-
-			youtubePage.FindVideo(songName);
-			youtubePage.OpenVideo();
-			youtubePage.CopyURL();
-			converterPage.OpenConverter();
-			converterPage.EnterURL(youtubePage.videoURL);
-			converterPage.DownloadVideo();	
-			
-			// Check if last song on list
-			if (i == (songsList.size() - 1)){
-				// If last song on list, wait for download to finish before closing the browser
-				converterPage.CheckIfDownloadFinished();
-			}
+	
+		File songs = new File(songlist);
+		if(songs.exists() && !songs.isDirectory()) { 
+			// Read songs list into an arraylist
+			ReadFromFile.ReadFile(songlist);
 			
 			youtubePage.OpenYoutube();
+			
+			for (int i = 0; i < songsList.size(); i++){
+				songName = songsList.get(i);
+
+				youtubePage.FindVideo(songName);
+				youtubePage.OpenVideo();
+				youtubePage.CopyURL();
+				converterPage.OpenConverter();
+				converterPage.EnterURL(youtubePage.videoURL);
+				converterPage.DownloadVideo();	
+				
+				// Check if last song on list
+				if (i == (songsList.size() - 1)){
+					// If last song on list, wait for download to finish before closing the browser
+					converterPage.CheckIfDownloadFinished();
+				}
+				
+				youtubePage.OpenYoutube();
+			}
+		} else {
+			System.out.println("File not found!");	
 		}
+			
 		Driver.driver.quit();
 		System.out.println("Done!");		
 	}
