@@ -30,16 +30,10 @@ public class Program {
 			songName = songsList.get(i);
 
 			youtubePage.FindVideo(songName);
-			Thread.sleep(3000);
 			youtubePage.OpenVideo();
-			Thread.sleep(3000);
 			youtubePage.CopyURL();
-			
-			Thread.sleep(3000);
 			converterPage.OpenConverter();
-			Thread.sleep(2000);
 			converterPage.EnterURL(youtubePage.videoURL);
-			Thread.sleep(5000);
 			converterPage.DownloadVideo();	
 			
 			// Check if last song on list

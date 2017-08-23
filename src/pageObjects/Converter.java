@@ -2,6 +2,7 @@ package pageObjects;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Converter extends utils.Driver {
 	public Converter(WebDriver Driver, WebDriverWait Wait){
 		super();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 	
 	private WebElement searchBox(){

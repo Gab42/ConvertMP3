@@ -1,6 +1,7 @@
 package pageObjects;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +13,8 @@ import program.Program;
 
 public class Youtube extends utils.Driver{
 		public Youtube(WebDriver Driver, WebDriverWait Wait){
-			super();		
+			super();
+			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}	
 		
 		public String videoURL;
@@ -25,8 +27,12 @@ public class Youtube extends utils.Driver{
 			return driver.findElement(By.className("search-button"));
 		}
 		
-		private WebElement video(){
+		private WebElement videoInList(){
 			return driver.findElement(By.cssSelector("span.yt-thumb-simple > img"));
+		}
+		
+		private WebElement videoOpened(){
+			return driver.findElement(By.id("watch-uploader-info"));
 		}
 		
 		public void OpenYoutube(){
@@ -39,8 +45,13 @@ public class Youtube extends utils.Driver{
 			searchButton().click();
 		}
 		
-		public void OpenVideo(){
-			video().click();
+		public void OpenVideo() throws InterruptedException{
+			while (driver.getCurrentUrl() == "https://www.youtube.com/")
+			{
+				Thread.sleep(1000);
+			}
+			Thread.sleep(1000);
+			videoInList().click();
 		}
 		
 		public void CopyURL(){
