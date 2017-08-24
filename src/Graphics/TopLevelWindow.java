@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.*; 
 
@@ -10,45 +12,56 @@ import program.Program;
 
 public class TopLevelWindow {
 	
-	public static JFrame frame = new JFrame("Test");;
+	public static JFrame frame = new JFrame("Find songs");;
 
 	public static void createWindow() {
 
-		 frame.setLayout(new BorderLayout());
 		 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		 frame.setLocationRelativeTo(null); 	 
 		 frame.setSize(700,300);
 		 
 		 JPanel panel = new JPanel(new GridBagLayout());
+		 frame.add(panel);
 		 GridBagConstraints c = new GridBagConstraints();
 		 
 		 // Label
-		 JLabel textLabel = new JLabel("Click button to start song download"); 
+		 JLabel textLabel = new JLabel("<html>1. Enter songs you want to find, each song on a separate line <br>"
+		 		+ "2. Be descriptive - artist name + song on each line <br>"
+		 		+ "3. Press button</html>"); 
+		 c.gridy = 0;
+		 c.insets = new Insets(20,20,20,20);
 		 panel.add(textLabel, c); 
 		 textLabel.setVisible(true);
 		 
-		 // Text field for input
-		 JTextArea textField = new JTextArea(10, 30);		
+		 // Text field for input with scroll
+		 final JTextArea textField = new JTextArea(10, 30);	
+		 final JScrollPane scroll = new JScrollPane(textField);
 		 c.gridy = 1;
-		 panel.add(textField, c);
+		 panel.add(scroll,c );
 		 
 		 // Button to start download
-		 JButton buttonGo = new JButton(); 
+		 JButton buttonFind = new JButton(); 
 		 c.gridy = 2;
-		 buttonGo.setText("Start download");	 
-		 panel.add(buttonGo, c);
-		 buttonGo.setVisible(true);
+		 buttonFind.setText("Find songs");	 
+		 panel.add(buttonFind, c);
+		 buttonFind.setVisible(true);
 		 
-	
+		 frame.pack();
 		 
-		 buttonGo.addActionListener( new ActionListener()
+		 buttonFind.addActionListener( new ActionListener()
 		 {
 		     @Override
 		     public void actionPerformed(ActionEvent e)
 		     {
-		         System.out.println("Do Something Clicked");
-		         try {
-					Program.downloadVideos();
+		         try {	        
+		        	// If no songs entered, warn the user and do nothing
+		        	if (textField.getText().isEmpty() ){
+		        		System.out.println("No songs entered");
+		        	} else{
+		        	// If songs entered, download them
+		        		program.Program.songsList = GetInput(textField);
+		        		Program.downloadVideos();
+		        	}					
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -57,11 +70,16 @@ public class TopLevelWindow {
 		 });
 		 
 		 frame.setContentPane(panel);
-		 //frame.pack();
 		 frame.setVisible(true); 
 	 } 
 	 
 	 public static void CloseWindow(JFrame frame){
 		 frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+	 }
+	 
+	 public static ArrayList<String> GetInput(JTextArea textField){
+		 String input[] = textField.getText().split("\\r?\\n");
+		 ArrayList<String> arrList = new ArrayList<String>(Arrays.asList(input)) ;
+		 return arrList;
 	 }
 }
