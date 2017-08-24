@@ -64,7 +64,7 @@ public class TopLevelWindow {
 		         try {	        
 		        	// If no songs entered, warn the user and do nothing
 		        	if (textField.getText().isEmpty() ){
-		        		System.out.println("No songs entered");
+		        		JOptionPane.showMessageDialog(null, "Please enter song names", "Alert", JOptionPane.ERROR_MESSAGE);
 		        	} else{
 		        	// If songs entered, download them
 		        		program.Program.songsList = GetInput(textField);
