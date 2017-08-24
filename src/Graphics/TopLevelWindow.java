@@ -33,15 +33,23 @@ public class TopLevelWindow {
 		 panel.add(textLabel, c); 
 		 textLabel.setVisible(true);
 		 
+		 // Disclaimer
+		 JLabel disclaimer = new JLabel("<html> Disclaimer: The user is responsible for searching only for royalty free music.  <br>"
+		 		+ "This software is meant as a Selenium learning experience. <br>"
+				+ "The creator is not responsible for how it will be used.</html>");
+		 c.gridy = 1;
+		 panel.add(disclaimer, c); 
+		 disclaimer.setVisible(true);
+		 
 		 // Text field for input with scroll
 		 final JTextArea textField = new JTextArea(10, 30);	
 		 final JScrollPane scroll = new JScrollPane(textField);
-		 c.gridy = 1;
+		 c.gridy = 2;
 		 panel.add(scroll,c );
 		 
 		 // Button to start download
 		 JButton buttonFind = new JButton(); 
-		 c.gridy = 2;
+		 c.gridy = 3;
 		 buttonFind.setText("Find songs");	 
 		 panel.add(buttonFind, c);
 		 buttonFind.setVisible(true);
